@@ -1,6 +1,6 @@
 'use strict';
 
-var atob = require('atob'),
+var atob = require('atob-lite'),
     uuid = require('uuidv4');
 
 var passkontrolle = {};
