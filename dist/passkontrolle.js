@@ -65,7 +65,7 @@ passkontrolle.prepareAuthentication = function (options) {
       redirectUrl = options.redirectUrl;
 
 
-  var responseType = ('id_token ' + options.responseType).trim(),
+  var responseType = ('id_token ' + (options.responseType || '')).trim(),
       scope = ('openid ' + (options.scope || '')).trim();
 
   var clientIdEncoded = encodeURIComponent(clientId),
