@@ -197,7 +197,7 @@ suite('passkontrolle', () => {
         redirectUrl: 'https://localhost'
       });
 
-      assert.that(authentication.url).is.startingWith('https://auth.example.com?client_id=client-id&redirect_uri=https%3A%2F%2Flocalhost&scope=openid&response_type=id_token%20undefined&nonce=');
+      assert.that(authentication.url).is.startingWith('https://auth.example.com?client_id=client-id&redirect_uri=https%3A%2F%2Flocalhost&scope=openid&response_type=id_token&nonce=');
       done();
     });
   });
