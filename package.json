@@ -1,6 +1,6 @@
 {
   "name": "passkontrolle",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "passkontrolle helps using OpenID Connect.",
   "contributors": [
     {

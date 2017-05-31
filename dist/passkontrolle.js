@@ -5,15 +5,18 @@ var atob = require('atob-lite'),
 
 var passkontrolle = {};
 
-passkontrolle.getToken = function (url) {
+passkontrolle.getToken = function (url, regex) {
   if (!url) {
     throw new Error('Url is missing.');
+  }
+  if (!regex) {
+    throw new Error('Regular expression is missing.');
   }
 
   var token = void 0;
 
   try {
-    token = url.match(/(#|&)id_token=([^&]+)/)[2];
+    token = url.match(regex)[2];
   } catch (ex) {
     // Intentionally ignore any errors here. If we could not analyse the url,
     // just return without a token.
@@ -23,9 +26,25 @@ passkontrolle.getToken = function (url) {
   return token;
 };
 
-passkontrolle.getPayloadFromToken = function (token) {
+passkontrolle.getIdToken = function (url) {
+  if (!url) {
+    throw new Error('Url is missing.');
+  }
+
+  return this.getToken(url, /(#|&)id_token=([^&]+)/);
+};
+
+passkontrolle.getAccessToken = function (url) {
+  if (!url) {
+    throw new Error('Url is missing.');
+  }
+
+  return this.getToken(url, /(#|&)token=([^&]+)/);
+};
+
+passkontrolle.getPayloadFromIdToken = function (token) {
   if (!token) {
-    throw new Error('Token is missing.');
+    throw new Error('Id token is missing.');
   }
 
   var payload = void 0;
