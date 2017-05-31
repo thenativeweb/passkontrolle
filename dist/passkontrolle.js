@@ -39,7 +39,7 @@ passkontrolle.getAccessToken = function (url) {
     throw new Error('Url is missing.');
   }
 
-  return this.getToken(url, /(#|&)token=([^&]+)/);
+  return this.getToken(url, /(#|&)access_token=([^&]+)/);
 };
 
 passkontrolle.getPayloadFromIdToken = function (token) {
