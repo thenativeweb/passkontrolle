@@ -16,22 +16,24 @@ First you need to integrate passkontrolle into your application.
 const passkontrolle = require('passkontrolle');
 ```
 
-### Getting a token from a URL
+## Handling id tokens
 
-To get a token from a url use the `getToken` function and provide the url as parameter.
+### Getting an id token from a URL
+
+To get an id token from a url use the `getIdToken` function and provide the url as parameter.
 
 ```javascript
-const token = passkontrolle.getToken('https://www.example.com#id_token=...');
+const token = passkontrolle.getIdToken('https://www.example.com#id_token=...');
 ```
 
-If the url does not contain a token, `undefined` is returned.
+If the url does not contain an id token, `undefined` is returned.
 
-### Getting the payload from a token
+### Getting the payload from an id token
 
-Once you have a token and need to retrieve its payload, use the `getPayloadFromToken` function and provide the token as parameter.
+Once you have an id token and need to retrieve its payload, use the `getPayloadFromIdToken` function and provide the id token as parameter.
 
 ```javascript
-const payload = getPayloadFromToken(token);
+const payload = getPayloadFromIdToken(token);
 
 console.log(payload);
 // => {
@@ -40,9 +42,21 @@ console.log(payload);
 //    }
 ```
 
-If the token is invalid, `undefined` is returned.
+If the id token is invalid, `undefined` is returned.
 
-### Preparing an authentication request
+## Handling access tokens
+
+### Getting an access token from a URL
+
+To get an access token from a url use the `getAccessToken` function and provide the url as parameter.
+
+```javascript
+const token = passkontrolle.getAccessToken('https://www.example.com#token=...');
+```
+
+If the url does not contain an access token, `undefined` is returned.
+
+## Preparing an authentication request
 
 To prepare an authentication request, use the `prepareAuthentication` function and provide the identity provider's url, the client id, and the redirect url. As a result, you get back an object that contains a `url` and a `nonce`.
 
