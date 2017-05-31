@@ -95,7 +95,7 @@ suite('passkontrolle', () => {
     });
 
     test('returns the access token if an access token is given.', done => {
-      const url = 'https://www.example.com#token=abc';
+      const url = 'https://www.example.com#access_token=abc';
       const token = passkontrolle.getAccessToken(url);
 
       assert.that(token).is.equalTo('abc');
@@ -103,7 +103,7 @@ suite('passkontrolle', () => {
     });
 
     test('returns the access token if an access token is given as non-first parameter.', done => {
-      const url = 'https://www.example.com#foo=bar&token=abc&bar=baz';
+      const url = 'https://www.example.com#foo=bar&access_token=abc&bar=baz';
       const token = passkontrolle.getAccessToken(url);
 
       assert.that(token).is.equalTo('abc');
@@ -111,7 +111,7 @@ suite('passkontrolle', () => {
     });
 
     test('returns the access token if an id token and an access token are given.', done => {
-      const url = 'https://www.example.com#foo=bar&token=abc&id_token=def&bar=baz';
+      const url = 'https://www.example.com#foo=bar&access_token=abc&id_token=def&bar=baz';
       const token = passkontrolle.getAccessToken(url);
 
       assert.that(token).is.equalTo('abc');
@@ -119,7 +119,7 @@ suite('passkontrolle', () => {
     });
 
     test('returns the access token if only the hash is given.', done => {
-      const url = '#token=abc';
+      const url = '#access_token=abc';
       const token = passkontrolle.getAccessToken(url);
 
       assert.that(token).is.equalTo('abc');
