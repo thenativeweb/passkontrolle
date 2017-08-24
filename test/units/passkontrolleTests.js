@@ -186,6 +186,18 @@ suite('passkontrolle', () => {
       done();
     });
 
+    test('returns the decoded payload from the token even if the token contains unicode characters.', done => {
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJoZWxsb0B0aGVuYXRpdmV3ZWIuaW8iLCJmaXJzdG5hbWUiOiLtlZzquIAiLCJsYXN0bmFtZSI6IuyhsOyEoOq4gCJ9.eFNgoIWMajuHwF2HRRangBABokgR2CshBUb_7IiaZr8';
+      const payload = passkontrolle.getPayloadFromIdToken(token);
+
+      assert.that(payload).is.equalTo({
+        sub: 'hello@thenativeweb.io',
+        firstname: '한글',
+        lastname: '조선글'
+      });
+      done();
+    });
+
     test('returns undefined if garbage is provided.', done => {
       const token = 'header.body.signature';
       const payload = passkontrolle.getPayloadFromIdToken(token);
