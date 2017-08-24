@@ -1,7 +1,6 @@
 'use strict';
 
-var atob = require('atob-lite'),
-    uuid = require('uuidv4');
+var uuid = require('uuidv4');
 
 var passkontrolle = {};
 
@@ -53,7 +52,7 @@ passkontrolle.getPayloadFromIdToken = function (token) {
     var bodyBase64Url = token.split('.')[1];
 
     var bodyBase64 = bodyBase64Url.replace(/-/g, '+').replace(/_/g, '/'),
-        bodyDecoded = atob(bodyBase64);
+        bodyDecoded = new Buffer(bodyBase64, 'base64').toString('utf8');
 
     payload = JSON.parse(bodyDecoded);
   } catch (ex) {
