@@ -8,3 +8,12 @@
 # OS generated files and folders
 .DS_Store
 npm-debug.log
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
