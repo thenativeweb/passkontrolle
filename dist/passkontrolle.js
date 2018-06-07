@@ -1,8 +1,35 @@
 'use strict';
 
+/* global window */
+
 var uuid = require('uuidv4');
 
 var passkontrolle = {};
+
+var decodeBase64 = function decodeBase64(encoded) {
+  if (!encoded) {
+    throw new Error('Encoded string is missing.');
+  }
+
+  if (typeof Buffer !== 'undefined') {
+    var _decoded = new Buffer(encoded, 'base64').toString('utf8');
+
+    return _decoded;
+  }
+
+  // Inspired by https://developer.mozilla.org/en-US/docs/Web/API/WindowBase64/Base64_encoding_and_decoding
+  var decodedCharacters = window.atob(encoded).split('');
+
+  var urlEncodedCharCodes = decodedCharacters.map(function (decodedCharacter) {
+    var urlEncodedCharCode = ('00' + decodedCharacter.charCodeAt(0).toString(16)).slice(-2);
+
+    return '%' + urlEncodedCharCode;
+  });
+
+  var decoded = decodeURIComponent(urlEncodedCharCodes).join('');
+
+  return decoded;
+};
 
 passkontrolle.getToken = function (url, regex) {
   if (!url) {
@@ -51,8 +78,12 @@ passkontrolle.getPayloadFromIdToken = function (token) {
   try {
     var bodyBase64Url = token.split('.')[1];
 
+    // Using Buffer here is not optimal if you use this module with a bundler
+    // such as webpack. Actually, we used atob-lite before, but this caused
+    // problems with unicode characters in the token's payload. Hence we
+    // decided to go with Buffer, as this works flawlessly.
     var bodyBase64 = bodyBase64Url.replace(/-/g, '+').replace(/_/g, '/'),
-        bodyDecoded = new Buffer(bodyBase64, 'base64').toString('utf8');
+        bodyDecoded = decodeBase64(bodyBase64);
 
     payload = JSON.parse(bodyDecoded);
   } catch (ex) {
