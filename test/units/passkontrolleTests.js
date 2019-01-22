@@ -3,7 +3,7 @@
 const assert = require('assertthat'),
       uuid = require('uuidv4');
 
-const passkontrolle = require('../../lib/passkontrolle');
+const passkontrolle = require('../../src/passkontrolle');
 
 suite('passkontrolle', () => {
   test('is an object.', done => {

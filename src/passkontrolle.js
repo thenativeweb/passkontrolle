@@ -12,7 +12,7 @@ const decodeBase64 = function (encoded) {
   }
 
   if (typeof Buffer !== 'undefined') {
-    const decoded = new Buffer(encoded, 'base64').toString('utf8');
+    const decoded = Buffer.from(encoded, 'base64').toString('utf8');
 
     return decoded;
   }
